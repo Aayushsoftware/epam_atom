@@ -12,11 +12,11 @@ app = FastAPI(
     description="Resume Parsing System for College Training and Placement Department with Deterministic Python Rules & OpenAI for Projects/Experience.",
 )
 
-# CORS middleware for React frontend
+# CORS middleware for React frontend (supports localhost, local IP, and any deployed .onrender.com frontend)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS or ["*"],
-    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:[0-9]+)?",
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:[0-9]+)?|https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

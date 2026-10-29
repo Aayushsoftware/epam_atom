@@ -1,7 +1,16 @@
 /**
  * API service for communicating with the FastAPI backend.
  */
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const rawBase =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:8000';
+
+// Normalize: remove trailing slash, ensure it ends with /api (FastAPI API_V1_PREFIX)
+const cleanedBase = rawBase.replace(/\/+$/, '');
+const API_BASE_URL = cleanedBase.endsWith('/api')
+  ? cleanedBase
+  : `${cleanedBase}/api`;
 
 export async function parseResumeApi(file) {
   const formData = new FormData();
